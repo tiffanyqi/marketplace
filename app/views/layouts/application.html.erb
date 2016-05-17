@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marketplace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><%= link_to 'Buy', '/' %></li>
+      <li><%= link_to 'Sell', '/listings/sell' %></li>
+    </ul>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>

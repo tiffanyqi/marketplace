@@ -13,7 +13,6 @@
       <th>Average Price</th>
       <th>Bids</th>
       <th>Picture</th>
-      <th>View</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -24,10 +23,9 @@
     <% @listings.each do |listing| %>
       <tr>
         <td><%= listing.title %></td>
-        <td><%= listing.average_price %></td>
-        <td><%= listing.average_quantity %></td>
+        <td><%= listing.price %></td>
+        <td><%= listing.bid_quantity %></td>
         <td>Picture goes here</td>
-        <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
       </tr>
     <% end %>

@@ -9,6 +9,7 @@ class ListingsController < ApplicationController
 
   # sell.html
   def sell
+    # needs to be all listings with current user as user
     @listings = Listing.all
   end
 
@@ -17,7 +18,6 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
     if @listing.save
       # @listing.bidders << [current_user, @bid]
-      puts @listing.bidders.is_a?(String)
     end
   end
 
@@ -40,7 +40,7 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    @listing.average_quantity = 0
+    @listing.bid_quantity = 0
     @listing.user = current_user
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
@@ -87,6 +87,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:title, :description, :average_quantity, :average_price)
+      params.require(:listing).permit(:title, :description, :bid_quantity, :bid_price, :user)
     end
 end

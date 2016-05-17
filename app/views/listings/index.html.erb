@@ -23,8 +23,8 @@
     <% @listings.each do |listing| %>
       <tr>
         <td><%= listing.title %></td>
-        <td><%= listing.average_price %></td>
-        <td><%= listing.average_quantity %></td>
+        <td><%= listing.price %></td>
+        <td><%= listing.bid_quantity %></td>
         <td>Picture goes here</td>
         <td><%= link_to 'Bid', bid_listing_path(listing) %></td>
         <td><%= listing.user %></td>

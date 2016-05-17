@@ -11,17 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517222329) do
+ActiveRecord::Schema.define(version: 20160517234739) do
+
+  create_table "bids", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "user_id"
+    t.integer  "bid_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "listings", force: :cascade do |t|
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "title"
-    t.integer  "average_price"
-    t.integer  "average_quantity"
+    t.integer  "price"
+    t.integer  "bid_quantity"
     t.string   "description"
-    t.string   "user"
-    t.string   "bidders",          default: "--- []\n"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|

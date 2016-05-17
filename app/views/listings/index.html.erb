@@ -26,11 +26,8 @@
         <td><%= listing.average_price %></td>
         <td><%= listing.average_quantity %></td>
         <td>Picture goes here</td>
-        <td><%= link_to 'Bid', '/' %></td>
+        <td><%= link_to 'Bid', bid_listing_path(listing) %></td>
         <td><%= listing.user %></td>
-        <!-- Remove this later -->
-        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-        <td><%= link_to 'Remove', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

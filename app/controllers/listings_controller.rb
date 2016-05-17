@@ -2,18 +2,29 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   # before_action :authenticate_user!
 
-  # GET /listings
-  # GET /listings.json
+  # buy
   def index
     @listings = Listing.all
+  end
+
+  # sell.html
+  def sell
+    @listings = Listing.all
+  end
+
+  # bid.html
+  def bid
+    @listing = Listing.find(params[:id])
+    if @listing.save
+      # @listing.bidders << [current_user, @bid]
+      puts @listing.bidders.is_a?(String)
+    end
   end
 
   # GET /listings/1
   # GET /listings/1.json
   def show
-  end
-
-  def sell
+    @listing = Listing.find(params[:id])
   end
 
   # GET /listings/new

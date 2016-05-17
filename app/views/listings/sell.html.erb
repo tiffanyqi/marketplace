@@ -1,0 +1,37 @@
+<h1>Listings</h1>
+<!-- Add listing -->
+<p><%= link_to 'Add a Listing', new_listing_path %></p>
+
+<!-- show all of the listings associated with a given user -->
+<table>
+  <thead>
+    <tr>
+      <th colspan="6"></th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th>Average Price</th>
+      <th>Bids</th>
+      <th>Picture</th>
+      <th>View</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Sort -->
+
+    <% @listings.each do |listing| %>
+      <tr>
+        <td><%= listing.title %></td>
+        <td><%= listing.average_price %></td>
+        <td><%= listing.average_quantity %></td>
+        <td>Picture goes here</td>
+        <td><%= link_to 'Show', listing %></td>
+        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

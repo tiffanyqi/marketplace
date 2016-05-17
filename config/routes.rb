@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'listings#index'
   
   get 'listings/sell' => 'listings#sell'
+  get 'listings/bid/:id' => 'listings#bid', as: :bid_listing
   resources :listings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -6,7 +6,7 @@ class BidsController < ApplicationController
   # GET /bids
   # GET /bids.json
   def index
-    @bids = Bid.all
+    @bids = Bid.where(:user_id => current_user.id)
   end
 
   # GET /bids/1

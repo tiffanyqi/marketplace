@@ -2,40 +2,32 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:sell, :new, :edit, :create, :update, :destroy]
 
-  # buy
+  # display all listings, the main "buy" page.
   def index
     @listings = Listing.order(params[:sort])
   end
 
-  # sell.html
+  # manage own listings.
   def sell
     @listings = Listing.where(:user_id => current_user.id)
   end
 
-  # bid.html
-  def bid
+  # more information about the listing
+  def show
     @listing = Listing.find(params[:id])
-    # fix this
     @bids = Bid.where(:listing_id => @listing)
   end
 
-  # GET /listings/1
-  # GET /listings/1.json
-  def show
-    @listing = Listing.find(params[:id])
-  end
-
-  # GET /listings/new
+  # set up the new listing
   def new
     @listing = Listing.new
   end
 
-  # GET /listings/1/edit
+  # edit an existing listing
   def edit
   end
 
-  # POST /listings
-  # POST /listings.json
+  # create the new listing as supplied by "new"
   def create
     @listing = Listing.new(listing_params)
     @listing.bid_quantity = 0

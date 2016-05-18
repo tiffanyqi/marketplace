@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<% render 'form' %>
+<% listing = Listing.find(@bid.listing_id) %>
 
-<!-- Want to change to actual listing later -->
-<%= link_to 'Listing', listings_path %>
+<p>Listing: <%= listing.title %></p>
+<p>Price: <%= @bid.bid_price %></p>
+
+<%= link_to 'Back to Listing', listing_path(@bid.listing_id) %> |
+<%= link_to 'View Bids', '/bids' %> |
 <%= link_to 'Remove', @bid, method: :delete, data: { confirm: 'Are you sure?' } %>

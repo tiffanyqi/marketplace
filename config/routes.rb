@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'listings#index'
-  
   get 'listings/sell' => 'listings#sell', as: :sell_listings
-  match 'listings/bid/:id', to:'listings#bid', as: :bid_listing, via: [:get, :post]
-
   resources :listings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

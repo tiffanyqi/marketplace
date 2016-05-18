@@ -1,7 +1,6 @@
 == Marketplace
 
 TODOs:
-- make bid creation "back" go to the listing created
 - testing
 - security: do not allow the same user to bid
 - make sure bids are higher than asking price otherwise error
@@ -12,8 +11,8 @@ Palette: http://paletton.com/#uid=1050u0kllllaFw0g0qFqFg0w0aF
 
 
 Pages:
-- Login / Sign-up
 - Buy
 - bid/:id.html
-- bid/new
+- listing/:id.html
 - Sell
+- bids

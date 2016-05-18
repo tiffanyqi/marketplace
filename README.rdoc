@@ -2,5 +2,6 @@
 
 TODOs:
 - make bid creation "back" go to the listing created
-- get the bids to show up in the listing
+- get the bids to show up in the listing / display
 - testing
+- security: do not allow the same user to bid

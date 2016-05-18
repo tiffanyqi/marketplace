@@ -4,3 +4,4 @@
 
 <%= link_to 'Show', @listing %> |
 <%= link_to 'Back', listings_path %>
+<%= link_to 'Remove', @listing, method: :delete, data: { confirm: 'Are you sure?' } %>

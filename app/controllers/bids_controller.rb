@@ -29,6 +29,12 @@ class BidsController < ApplicationController
   def create
     @bid = Bid.new(bid_params)
     @listing = Listing.find(params[:listing])
+    if @listing.bid_quantity == 1
+      @listing.average_price = @bid.bid_price
+    else
+      @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price)
+      @listing.average_price = @listing.average_price / (@listing.bid_quantity + 1)
+    end
     @listing.bid_quantity += 1
     @bid.listing_id = @listing
     @bid.user_id = current_user.id

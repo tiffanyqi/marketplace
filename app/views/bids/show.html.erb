@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<% render 'form' %>
+
 <!-- Want to change to actual listing later -->
 <%= link_to 'Listing', listings_path %>
+<%= link_to 'Remove', @bid, method: :delete, data: { confirm: 'Are you sure?' } %>

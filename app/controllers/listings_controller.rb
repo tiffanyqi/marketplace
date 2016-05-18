@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
 
   # buy
   def index
-    @listings = Listing.all
+    @listings = Listing.order(params[:sort])
   end
 
   # sell.html
@@ -15,7 +15,8 @@ class ListingsController < ApplicationController
   # bid.html
   def bid
     @listing = Listing.find(params[:id])
-    @listing.bids = Bid.where(:listing_id => @listing)
+    # fix this
+    @bids = Bid.where(:listing_id => @listing)
     @listing.save
   end
 
@@ -39,6 +40,7 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.bid_quantity = 0
+    @listing.average_price = @listing.price
     @listing.user_id = current_user.id
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
@@ -85,6 +87,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:title, :description, :bid_quantity, :price, :user_id, :bids)
+      params.require(:listing).permit(:title, :description, :bid_quantity, :price, :average_price, :user_id, :bids)
     end
 end

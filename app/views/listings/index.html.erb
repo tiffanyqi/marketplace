@@ -9,8 +9,8 @@
     </tr>
     <tr>
       <th>Item</th>
-      <th>Average Price</th>
-      <th>Number of Bids</th>
+      <th><%= link_to 'Average Price', listings_path(:sort => 'average_price') %></th>
+      <th><%= link_to 'Number of Bids', listings_path(:sort => 'bid_quantity') %></th>
       <th>Picture</th>
       <th>View Bids</th>
       <th>User</th>
@@ -23,7 +23,7 @@
     <% @listings.each do |listing| %>
       <tr>
         <td><%= listing.title %></td>
-        <td><%= listing.price %></td>
+        <td><%= listing.average_price %></td>
         <td><%= listing.bid_quantity %></td>
         <td>Picture goes here</td>
         <td><%= link_to 'Bids', bid_listing_path(listing) %></td>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'listings#index'
   
-  get 'listings/sell' => 'listings#sell'
+  get 'listings/sell' => 'listings#sell', as: :sell_listings
   match 'listings/bid/:id', to:'listings#bid', as: :bid_listing, via: [:get, :post]
 
   resources :listings

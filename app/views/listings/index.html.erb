@@ -13,7 +13,6 @@
       <th><%= link_to 'Number of Bids', listings_path(:sort => 'bid_quantity') %></th>
       <th>Picture</th>
       <th>View Bids</th>
-      <th>User</th>
     </tr>
   </thead>
 
@@ -27,7 +26,6 @@
         <td><%= listing.bid_quantity %></td>
         <td>Picture goes here</td>
         <td><%= link_to 'Bids', bid_listing_path(listing) %></td>
-        <td><%= listing.user_id %></td>
       </tr>
     <% end %>
   </tbody>

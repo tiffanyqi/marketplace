@@ -1,12 +1,22 @@
 <%= form_for(@listing) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <fieldset class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+    <small class="text-muted">What are you selling?</small>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :price %>
+    <%= f.text_field :price, class: 'form-control' %>
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="exampleInputFile">Picture</label>
+    <input type="file" class="form-control-file" id="exampleInputFile">
+  </fieldset>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-
-  <%= f.label :price %>
-  <%= f.text_field :price %>
 
   <% if @listing.errors.any? %>
     <div id="error_explanation">
@@ -24,3 +34,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+

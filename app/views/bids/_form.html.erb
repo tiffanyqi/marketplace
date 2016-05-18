@@ -1,6 +1,9 @@
 <%= form_for(@bid) do |f| %>
-  <%= f.label :bid_price %>
-  <%= f.text_field :bid_price %>
+  <fieldset class="form-group">
+    <%= f.label :bid_price %>
+    <%= f.text_field :bid_price, class: 'form-control' %>
+    <small class="text-muted">You can only bid higher than the asking price.</small>
+  </fieldset>
   <%= hidden_field_tag(:listing, @listing) %>
 
   <% if @bid.errors.any? %>
@@ -16,6 +19,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit%>
+    <%= f.submit %>
   </div>
 <% end %>
+

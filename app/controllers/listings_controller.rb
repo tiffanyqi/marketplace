@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:sell, :bid, :new, :edit, :create, :update, :destroy]
+  before_action :authenticate_user!, only: [:sell, :new, :edit, :create, :update, :destroy]
 
   # buy
   def index
@@ -17,7 +17,6 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
     # fix this
     @bids = Bid.where(:listing_id => @listing)
-    @listing.save
   end
 
   # GET /listings/1

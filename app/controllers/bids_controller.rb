@@ -1,5 +1,7 @@
 class BidsController < ApplicationController
   before_action :set_bid, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
 
   # GET /bids
   # GET /bids.json
@@ -18,6 +20,7 @@ class BidsController < ApplicationController
   def new
     @bid = Bid.new
     @listing = params[:listing]
+    @bids = Bid.where(:listing_id => @listing)
   end
 
   # GET /bids/1/edit
@@ -36,7 +39,7 @@ class BidsController < ApplicationController
       @listing.average_price = @listing.average_price / (@listing.bid_quantity + 1)
     end
     @listing.bid_quantity += 1
-    @bid.listing_id = @listing
+    @bid.listing_id = @listing.id
     @bid.user_id = current_user.id
     @bid.save
     @listing.save

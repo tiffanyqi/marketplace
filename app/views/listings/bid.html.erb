@@ -1,5 +1,6 @@
 <h1><%= @listing.title %></h1>
 <p><%= @listing.description %></p>
+<br>
 <p><%= link_to 'Submit Bid', new_bid_path(:listing => @listing) %></p>
 
 <!-- on the side -->
@@ -8,7 +9,7 @@
 <p>Bid quantity: <%= @listing.bid_quantity %></p>
 <p>Bids</p>
 <% @bids.each do |bid| %>
-  <tr>
-    <td><%= bid.bid_price %></td>
-  </tr>
+  <ul>
+    <li><%= bid.bid_price %></li>
+  </ul>
 <% end %>

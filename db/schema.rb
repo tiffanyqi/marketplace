@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517234739) do
+ActiveRecord::Schema.define(version: 20160518030258) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "listing_id"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20160517234739) do
     t.integer  "bid_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  add_index "bids", ["listing_id"], name: "index_bids_on_listing_id"
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id"
+
+  create_table "bids_listings", id: false, force: :cascade do |t|
+    t.integer "bid_id"
+    t.integer "listing_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -30,6 +38,8 @@ ActiveRecord::Schema.define(version: 20160517234739) do
     t.string   "description"
     t.integer  "user_id"
   end
+
+  add_index "listings", ["user_id"], name: "index_listings_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

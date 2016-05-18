@@ -12,7 +12,7 @@ Feature: Bidding
     | 3  | parkins    | jack      |
     
     Given the following listings exist:
-    | id | title | price | bid_quantity | user |
+    | id | title | price | bid_quantity | user_id |
     | 1  | pipe  | 10    | 2            | 1    |
 
     Given the following bids exist:
@@ -22,8 +22,8 @@ Feature: Bidding
 
 
   Scenario: Seeing previous bids
-    Given I am on the buy page
-    And I follow bid
+    Given I am on the listings page
+    And I go to the bid page for pipe
     Then I should see pipe
     Then I should see original price as 10
     Then I should see 11
@@ -31,8 +31,8 @@ Feature: Bidding
     Then I should see average price as 11.5
 
   Scenario: Making a bid
-    Given I am on the buy page
-    And I follow bid
+    Given I am on the listings page
+    And I go to the bid page for pipe
     And I click bid
     And I enter 13
     And I follow enter
@@ -43,8 +43,8 @@ Feature: Bidding
     Then I should see average price as 12
 
   Scenario: Not making a bid
-    Given I am on the buy page
-    And I follow bid
+    Given I am on the listings page
+    And I go to the bid page for pipe
     And I click bid
     And I follow enter
     Then I should see original price as 10

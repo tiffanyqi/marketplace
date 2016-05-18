@@ -10,9 +10,9 @@
     <tr>
       <th>Item</th>
       <th>Average Price</th>
-      <th>Average Bids</th>
+      <th>Number of Bids</th>
       <th>Picture</th>
-      <th>Bid</th>
+      <th>View Bids</th>
       <th>User</th>
     </tr>
   </thead>
@@ -26,8 +26,8 @@
         <td><%= listing.price %></td>
         <td><%= listing.bid_quantity %></td>
         <td>Picture goes here</td>
-        <td><%= link_to 'Bid', bid_listing_path(listing) %></td>
-        <td><%= listing.user %></td>
+        <td><%= link_to 'Bids', bid_listing_path(listing) %></td>
+        <td><%= listing.user_id %></td>
       </tr>
     <% end %>
   </tbody>

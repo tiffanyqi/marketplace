@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:sell, :bid, :new, :edit, :create, :update, :destroy]
 
   # buy
   def index
@@ -9,16 +9,14 @@ class ListingsController < ApplicationController
 
   # sell.html
   def sell
-    # needs to be all listings with current user as user
-    @listings = Listing.all
+    @listings = Listing.where(:user_id => current_user.id)
   end
 
   # bid.html
   def bid
     @listing = Listing.find(params[:id])
-    if @listing.save
-      # @listing.bidders << [current_user, @bid]
-    end
+    @listing.bids = Bid.where(:listing_id => @listing)
+    @listing.save
   end
 
   # GET /listings/1
@@ -41,7 +39,7 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.bid_quantity = 0
-    @listing.user = current_user
+    @listing.user_id = current_user.id
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
 
@@ -87,6 +85,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:title, :description, :bid_quantity, :bid_price, :user)
+      params.require(:listing).permit(:title, :description, :bid_quantity, :price, :user_id, :bids)
     end
 end

@@ -11,9 +11,9 @@
 <% if user_signed_in? %>
   <nav>
     <ul>
-      <li><%= link_to 'Buy', '/' %></li>
-      <li><%= link_to 'Sell', '/listings/sell' %></li>
-      <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
+      <li><%= link_to 'Buy', '/', class: 'nav-left' %></li>
+      <li><%= link_to 'Sell', '/listings/sell', class: 'nav-left' %></li>
+      <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete, class: 'nav-right' %></li>
     </ul>
   </nav>
 
@@ -21,7 +21,9 @@
   <%= link_to "Sign In", user_session_path %>
 <% end %>
 
-<%= yield %>
+<div class="container">
+  <%= yield %>
+</div>
 
 </body>
 </html>

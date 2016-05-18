@@ -5,3 +5,4 @@ TODOs:
 - get the bids to show up in the listing / display
 - testing
 - security: do not allow the same user to bid
+- front-end

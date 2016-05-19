@@ -1,6 +1,20 @@
 == Marketplace
 
-TODOs:
+A two-way marketplace that allows you to bid for other listings.
+
+Currently not on heroku. In order to view this app, please do the following:
+- Install rails
+- Clone this repo
+- Run 'bundle install'
+- Run 'rails s'
+
+Feel free to contact me if you have any questions.
+
+Uses sqlite3 and rails 4.2.6
+
+
+If I have more time:
+- display average_price correctly
 - change timestamps
 - change boolean
 - change currency

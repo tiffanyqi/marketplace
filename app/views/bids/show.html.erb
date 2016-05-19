@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Your Bid</h1>
+
 <% listing = Listing.find(@bid.listing_id) %>
 
 <p>Listing: <%= listing.title %></p>
 <p>Price: <%= @bid.bid_price %></p>
+<p>Date: <%= @bid.created_at %></p>
 
 <%= link_to 'Back to Listing', listing_path(@bid.listing_id) %> |
 <%= link_to 'View Bids', '/bids' %> |

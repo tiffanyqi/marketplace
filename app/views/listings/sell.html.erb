@@ -14,6 +14,8 @@
       <th>Bids</th>
       <th>Picture</th>
       <th>Edit</th>
+      <th>Date Created</th>
+      <th>Accepted?</th>
     </tr>
   </thead>
 
@@ -25,9 +27,11 @@
         <td><%= listing.title %></td>
         <td><%= listing.price %></td>
         <td><%= listing.average_price %></td>
-        <td><%= listing.bid_quantity %></td>
+        <td><%= link_to listing.bid_quantity, listing %></td>
         <td>Picture goes here</td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+        <td><%= listing.created_at %></td>
+        <td><%= listing.accepted %></td>
       </tr>
     <% end %>
   </tbody>

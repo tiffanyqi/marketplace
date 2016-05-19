@@ -11,6 +11,8 @@
       <th>Listing</th>
       <th>View</th>
       <th>Remove</th>
+      <th>Date Created</th>
+      <th>Accepted?</th>
     </tr>
   </thead>
 
@@ -21,6 +23,8 @@
         <td><%= listing.title %></td>
         <td><%= link_to 'View', bid %></td>
         <td><%= link_to 'Remove', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= bid.created_at %></td>
+        <td><%= bid.accepted %></td>
       </tr>
     <% end %>
   </tbody>

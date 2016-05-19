@@ -13,6 +13,7 @@
       <th><%= link_to 'Number of Bids', listings_path(:sort => 'bid_quantity') %></th>
       <th>Picture</th>
       <th>View Bids</th>
+      <th>Date Created</th>
     </tr>
   </thead>
 
@@ -21,11 +22,14 @@
 
     <% @listings.each do |listing| %>
       <tr>
-        <td><%= listing.title %></td>
-        <td><%= listing.average_price %></td>
-        <td><%= listing.bid_quantity %></td>
-        <td>Picture goes here</td>
-        <td><%= link_to 'Bids', listing %></td>
+        <% if !listing.accepted %>
+          <td><%= listing.title %></td>
+          <td><%= listing.average_price %></td>
+          <td><%= listing.bid_quantity %></td>
+          <td>Picture goes here</td>
+          <td><%= link_to 'Bids', listing %></td>
+          <td><%= listing.created_at %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

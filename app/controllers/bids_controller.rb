@@ -16,6 +16,16 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
   end
 
+  def accept
+    @listing = Listing.find(params[:listing])
+    @bid = Bid.find(params[:id])
+    @bid.accepted = true
+    @listing.accepted = true
+    @listing.save
+    @bid.save
+    redirect_to :action => 'index', :controller => 'bids'
+  end
+
   # GET /bids/new
   def new
     @bid = Bid.new
@@ -41,6 +51,7 @@ class BidsController < ApplicationController
     @listing.bid_quantity += 1
     @bid.listing_id = @listing.id
     @bid.user_id = current_user.id
+    @bid.accepted = false
     @bid.save
     @listing.save
 

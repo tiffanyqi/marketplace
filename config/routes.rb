@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :bids
+  root 'listings#index'
   devise_for :users
 
-  root 'listings#index'
   get 'listings/sell' => 'listings#sell', as: :sell_listings
   resources :listings
+  
+  post 'bids/:id' => 'bids#accept', as: :accept_bid
+  resources :bids
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

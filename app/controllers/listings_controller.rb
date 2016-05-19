@@ -15,7 +15,11 @@ class ListingsController < ApplicationController
   # more information about the listing
   def show
     @listing = Listing.find(params[:id])
-    @bids = Bid.where(:listing_id => @listing)
+    if params[:sort]
+      @bids = Bid.where(:listing_id => @listing).order(params[:sort] + ' DESC')
+    else
+      @bids = Bid.where(:listing_id => @listing)
+    end
   end
 
   # set up the new listing
@@ -33,6 +37,7 @@ class ListingsController < ApplicationController
     @listing.bid_quantity = 0
     @listing.average_price = @listing.price
     @listing.user_id = current_user.id
+    @listing.accepted = false
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
 

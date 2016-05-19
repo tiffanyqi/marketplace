@@ -9,7 +9,11 @@ class ListingsController < ApplicationController
 
   # manage own listings.
   def sell
-    @listings = Listing.where(:user_id => current_user.id)
+    if params[:sort]
+      @listings = Listing.where(:user_id => current_user.id).order(params[:sort] + ' DESC')
+    else
+      @listings = Listing.where(:user_id => current_user.id)
+    end
   end
 
   # more information about the listing

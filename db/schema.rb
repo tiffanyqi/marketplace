@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518233628) do
+ActiveRecord::Schema.define(version: 20160519020514) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "listing_id"
     t.integer  "user_id"
-    t.integer  "bid_price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "bid_price",  precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.boolean  "accepted"
   end
 
@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20160518233628) do
   end
 
   create_table "listings", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "title"
-    t.integer  "price"
+    t.decimal  "price",         precision: 8, scale: 2
     t.integer  "bid_quantity"
     t.string   "description"
     t.integer  "user_id"
-    t.integer  "average_price"
+    t.decimal  "average_price", precision: 8, scale: 2
     t.boolean  "accepted"
   end
 

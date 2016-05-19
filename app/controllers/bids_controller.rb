@@ -6,7 +6,11 @@ class BidsController < ApplicationController
   # GET /bids
   # GET /bids.json
   def index
-    @bids = Bid.where(:user_id => current_user.id)
+    if params[:sort]
+      @bids = Bid.where(:user_id => current_user.id).order(params[:sort] + ' DESC')
+    else
+      @bids = Bid.where(:user_id => current_user.id)
+    end
   end
 
   # GET /bids/1

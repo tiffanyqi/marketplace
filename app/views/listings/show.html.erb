@@ -2,39 +2,45 @@
 
 <% if @listing.accepted and @listing.user_id != current_user.id %>
   <h2>This listing is no longer available. Feel free to check out <a href=listings_path>Other Listings</a>.</h2>
+
 <% else %>
-
+  <div class="col-md-6">
   <h1><%= @listing.title %></h1>
-  <p><%= @listing.created_at %></p>
-  <p><%= @listing.description %></p>
-  <br>
-  <% if @listing.user_id != current_user.id %>
-    <p><%= link_to 'Submit Bid', new_bid_path(:listing => @listing) %></p>
-  <% end %>
-
-  <!-- on the side -->
-  <p>Listing price: <%= @listing.price %></p>
-  <p>Average price: <%= @listing.average_price %></p>
-  <p>Bid quantity: <%= @listing.bid_quantity %></p>
-
-  <h2>Bids</h2>
-
-    <% if @listing.accepted %>
-      <p>You've accepted this bid!</p>
-    <% end %>
-
-    <table>
-      <thead>
+    <table class="table table-hover">
+      <tbody>
+        <tr><td><strong>Date:</strong> <%= @listing.created_at %></td></tr>
+        <tr><td><strong>Listing Price:</strong> <%= @listing.price %></td></tr>
         <tr>
-          <th colspan="3"></th>
-        </tr>
+          <td><strong>Description:</strong> <br><%= @listing.description %></td></tr>
+      </tbody>
+    </table>
+    <br>
+    <% if @listing.user_id == current_user.id %>
+      <%= link_to 'Edit', edit_listing_path(@listing) %> |
+      <%= link_to 'Your Listings', '/listings/sell' %> |
+    <% end %>
+    <%= link_to 'Back', listings_path %>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Bids</h2>
+    <% if @listing.accepted %>
+      <h3>You've accepted this bid!</h3>
+    <% end %>
+    <p><strong>Average price:</strong> <%= @listing.average_price %></p>
+    <% if @listing.user_id != current_user.id %>
+      <%= link_to 'Submit Bid', new_bid_path(:listing => @listing) %>
+    <% end %>
+    <table class="table table-hover">
+      <thead>
         <tr>
           <th><%= link_to 'Bid Price', listing_path(@listing, :sort => 'bid_price') %></th>
           <th><%= link_to 'Date Created', listing_path(@listing, :sort => 'created_at')%></th>
-          <th>Accept?</th>
+          <% if @listing.user_id == current_user.id %>
+            <th>Accepted?</th>
+          <% end %>
         </tr>
       </thead>
-
       <tbody>
         <% @bids.each do |bid| %>
           <tr>
@@ -43,16 +49,12 @@
             <% if @listing.user_id == current_user.id and !@listing.accepted %>
               <td><%= link_to 'Accept', accept_bid_path(bid, :listing => @listing.id), method: :post, data: { confirm: 'Are you sure you want to accept this bid?' } %></td>
             <% elsif @listing.user_id == current_user.id and bid.accepted %>
-              <td>Accepted</td>
+              <td>Accepted!</td>
             <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
+  </div>
 
-  <% if @listing.user_id == current_user.id %>
-    <%= link_to 'Edit', edit_listing_path(@listing) %> |
-    <%= link_to 'Your Listings', '/listings/sell' %> |
-  <% end %>
-  <%= link_to 'Back', listings_path %>
 <% end %>

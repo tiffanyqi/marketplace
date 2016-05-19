@@ -2,11 +2,14 @@
 
 <h1>Your Bid</h1>
 
-<% listing = Listing.find(@bid.listing_id) %>
-
-<p>Listing: <%= listing.title %></p>
-<p>Price: <%= @bid.bid_price %></p>
-<p>Date: <%= @bid.created_at %></p>
+<table class="table table-hover">
+  <tbody>
+    <% listing = Listing.find(@bid.listing_id) %>
+    <tr><td><strong>Listing:</strong> <%= listing.title %></td></tr>
+    <tr><td><strong>Price:</strong> <%= @bid.bid_price %></td></tr>
+    <tr><td><strong>Date:</strong> <%= @bid.created_at %></td></tr>
+  </tbody>
+</table>
 
 <%= link_to 'Back to Listing', listing_path(@bid.listing_id) %> |
 <%= link_to 'View Bids', '/bids' %> |

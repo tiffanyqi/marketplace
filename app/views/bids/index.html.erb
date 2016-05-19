@@ -1,35 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Your Bids</h1>
-
-<table>
+          
+<table class="table table-hover">
   <thead>
     <tr>
-      <th colspan="3"></th>
-    </tr>
-    <tr>
-      <th>Listing</th>
-      <th>View</th>
+      <th><%= 'Listing' %></th>
+      <th><%= link_to 'Date Created', bids_path(:sort => 'created_at') %></th>
       <th>Remove</th>
-      <th>Date Created</th>
-      <th>Accepted?</th>
+      <th><%= link_to 'Accepted?', bids_path(:sort => 'accepted') %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @bids.each do |bid| %>
       <tr>
         <% listing = Listing.find(bid.listing_id) %>
-        <td><%= listing.title %></td>
-        <td><%= link_to 'View', bid %></td>
-        <td><%= link_to 'Remove', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to listing.title, bid %></td>
         <td><%= bid.created_at %></td>
+        <td><%= link_to 'Remove', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= bid.accepted %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'All Listings', '/' %>

@@ -7,13 +7,9 @@ TODOs:
 - front-end
 - upload pictures
 - change timestamps
+- change boolean
+- change currency
+- listing sorting in bids
+- button_to in submiting a bid
 
 Palette: http://paletton.com/#uid=1050u0kllllaFw0g0qFqFg0w0aF
-
-
-Pages:
-- bid/:id.html
-- listing/:id.html
-- bids
-- Buy
-- Sell

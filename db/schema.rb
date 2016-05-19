@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519020514) do
+ActiveRecord::Schema.define(version: 20160519051223) do
 
   create_table "bids", force: :cascade do |t|
     t.integer  "listing_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160519020514) do
     t.integer  "user_id"
     t.decimal  "average_price", precision: 8, scale: 2
     t.boolean  "accepted"
+    t.string   "image"
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"

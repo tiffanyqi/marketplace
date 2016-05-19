@@ -2,37 +2,22 @@
 
 <h1>Listings</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="6"></th>
-    </tr>
-    <tr>
-      <th>Item</th>
-      <th><%= link_to 'Average Price', listings_path(:sort => 'average_price') %></th>
-      <th><%= link_to 'Number of Bids', listings_path(:sort => 'bid_quantity') %></th>
-      <th>Picture</th>
-      <th>View Bids</th>
-      <th>Date Created</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <!-- Sort -->
-
-    <% @listings.each do |listing| %>
-      <tr>
-        <% if !listing.accepted %>
-          <td><%= listing.title %></td>
-          <td><%= listing.average_price %></td>
-          <td><%= listing.bid_quantity %></td>
-          <td>Picture goes here</td>
-          <td><%= link_to 'Bids', listing %></td>
-          <td><%= listing.created_at %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<p><%= link_to 'Sort by Average Price', listings_path(:sort => 'average_price') %></p>
+<p><%= link_to 'Sort by Number of Bids', listings_path(:sort => 'bid_quantity') %></p>
 <br>
+
+<div class='row'>
+  <% @listings.each do |listing| %>
+    <% if !listing.accepted %>
+      <div class='col-md-4'>
+        <%= link_to(listing, :class => 'thumbnail') do %>
+          <h4><%= listing.title %></h4>
+          <%= image_tag listing.image.thumb.url if listing.image? %>
+          <p><strong>Average Price: </strong><%= listing.average_price %></p>
+          <p><strong>Number of Bids: </strong><%= listing.bid_quantity %></p>
+          <p><strong>Date Created: </strong><%= listing.created_at %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

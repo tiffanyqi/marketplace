@@ -4,12 +4,56 @@ TODOs:
 - testing
 - security: do not allow the same user to bid
 - make sure bids are higher than asking price otherwise error
-- front-end
 - upload pictures
 - change timestamps
 - change boolean
 - change currency
 - listing sorting in bids
 - button_to in submiting a bid
+- update colors
+- create grid in listings
 
 Palette: http://paletton.com/#uid=1050u0kllllaFw0g0qFqFg0w0aF
+
+
+
+
+listings/index.html:
+<p id="notice"><%= notice %></p>
+
+<h1>Listings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="6"></th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th><%= link_to 'Average Price', listings_path(:sort => 'average_price') %></th>
+      <th><%= link_to 'Number of Bids', listings_path(:sort => 'bid_quantity') %></th>
+      <th>Picture</th>
+      <th>View Bids</th>
+      <th>Date Created</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Sort -->
+
+    <% @listings.each do |listing| %>
+      <tr>
+        <% if !listing.accepted %>
+          <td><%= listing.title %></td>
+          <td><%= listing.average_price %></td>
+          <td><%= listing.bid_quantity %></td>
+          <td>Picture goes here</td>
+          <td><%= link_to 'Bids', listing %></td>
+          <td><%= listing.created_at %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

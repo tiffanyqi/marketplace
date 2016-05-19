@@ -41,6 +41,7 @@ class ListingsController < ApplicationController
     @listing.bid_quantity = 0
     @listing.average_price = @listing.price
     @listing.user_id = current_user.id
+    @listing.image = params[:remote_image_url]
     @listing.accepted = false
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
@@ -87,6 +88,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:title, :description, :bid_quantity, :price, :average_price, :user_id, :bids)
+      params.require(:listing).permit(:title, :description, :bid_quantity, :price, :average_price, :user_id, :bids, :image)
     end
 end

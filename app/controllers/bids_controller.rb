@@ -96,6 +96,7 @@ class BidsController < ApplicationController
     if listing.bid_quantity == 0
       listing.average_price == listing.price
     elsif listing.bid_quantity == 1
+      # leaves the wrong one
       listing.average_price = bid.bid_price
     else
       case action

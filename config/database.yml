@@ -9,36 +9,6 @@ default: &default
   pool: 5
   timeout: 5000
 
-<<<<<<< HEAD
-# development:
-#   adapter: postgresql
-#   encoding: utf8
-#   database: marketplace_development
-#   pool: 5
-#   username: 
-#   password:
-
-# test: &TEST
-#   adapter: postgresql
-#   encoding: utf8
-#   database: marketplace_test
-#   pool: 5
-#   username: 
-#   password:
-
-# production:
-#   adapter: postgresql
-#   encoding: utf8
-#   database: marketplace_production
-#   pool: 5
-#   username: 
-#   password:
-
-default: &default
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-
 development:
   <<: *default
   database: db/development.sqlite3
@@ -47,16 +17,6 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-=======
-development:
-  <<: *default
-  database: db/development.sqlite3
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test: &test
->>>>>>> parent of 1cd622c... convert db and more tests
   <<: *default
   database: db/test.sqlite3
 

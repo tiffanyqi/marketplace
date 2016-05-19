@@ -50,7 +50,7 @@ class BidsController < ApplicationController
     if Listing.find(@listing).price > @bid.bid_price
       render :new, notice: 'Please create a bid price higher than the asking price.'
     else
-      @listing = Listing.find(params[:listing])
+      @listing = Listing.find(@listing)
       @listing.bid_quantity += 1
       @listing.save
       update_price(@listing, @bid, 'add')
@@ -74,7 +74,7 @@ class BidsController < ApplicationController
   def update_price(listing, bid, action)
     if listing.bid_quantity == 0
       listing.average_price = listing.price
-    elsif listing.bid_quantity = 1
+    elsif listing.bid_quantity == 1
       listing.average_price = bid.bid_price
     else
       case action
@@ -83,7 +83,7 @@ class BidsController < ApplicationController
         listing.average_price+=bid.bid_price
         listing.average_price/=listing.bid_quantity
       when 'remove'
-        listing.average_price*=(listng.bid_quantity+1)
+        listing.average_price*=(listing.bid_quantity+1)
         listing.average_price-=bid.bid_price
         listing.average_price/=listing.bid_quantity
       end

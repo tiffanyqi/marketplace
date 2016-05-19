@@ -33,6 +33,12 @@ class ListingsController < ApplicationController
 
   # edit an existing listing
   def edit
+    if @listing.user_id != current_user.id
+      respond_to do |format|
+        format.html { redirect_to listings_url, notice: 'You do not have permission to access this.' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # create the new listing as supplied by "new"
@@ -41,7 +47,6 @@ class ListingsController < ApplicationController
     @listing.bid_quantity = 0
     @listing.average_price = @listing.price
     @listing.user_id = current_user.id
-    @listing.image = params[:remote_image_url]
     @listing.accepted = false
     # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
@@ -57,13 +62,14 @@ class ListingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /listings/1
-  # PATCH/PUT /listings/1.json
+  # updating a listing from edit.
   def update
     respond_to do |format|
-      if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @listing }
+      if @listing.user_id == current_user.id
+        if @listing.update(listing_params)
+          format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
+          format.json { render :show, status: :ok, location: @listing }
+        end
       else
         format.html { render :edit }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -74,11 +80,18 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
-    @listing.destroy
-    respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @listing.user_id == current_user.id
+      @listing.destroy
+      respond_to do |format|
+        format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to listings_url, notice: 'You do not have permission to destroy this.' }
+        format.json { head :no_content }
+      end
+    end      
   end
 
   private

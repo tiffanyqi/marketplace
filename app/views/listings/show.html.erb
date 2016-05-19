@@ -8,6 +8,7 @@
   <h1><%= @listing.title %></h1>
     <table class="table table-hover">
       <tbody>
+        <tr><td><%= image_tag @listing.image.thumb.url if @listing.image? %></td></tr>
         <tr><td><strong>Date:</strong> <%= @listing.created_at %></td></tr>
         <tr><td><strong>Listing Price:</strong> <%= @listing.price %></td></tr>
         <tr>
@@ -15,7 +16,7 @@
       </tbody>
     </table>
     <br>
-    <% if @listing.user_id == current_user.id %>
+    <% if current_user and @listing.user_id == current_user.id %>
       <%= link_to 'Edit', edit_listing_path(@listing) %> |
       <%= link_to 'Your Listings', '/listings/sell' %> |
     <% end %>
@@ -28,7 +29,7 @@
       <h3>You've accepted this bid!</h3>
     <% end %>
     <p><strong>Average price:</strong> <%= @listing.average_price %></p>
-    <% if @listing.user_id != current_user.id %>
+    <% if current_user and @listing.user_id != current_user.id %>
       <%= link_to 'Submit Bid', new_bid_path(:listing => @listing) %>
     <% end %>
     <table class="table table-hover">
@@ -36,7 +37,7 @@
         <tr>
           <th><%= link_to 'Bid Price', listing_path(@listing, :sort => 'bid_price') %></th>
           <th><%= link_to 'Date Created', listing_path(@listing, :sort => 'created_at')%></th>
-          <% if @listing.user_id == current_user.id %>
+          <% if current_user and @listing.user_id == current_user.id %>
             <th>Accepted?</th>
           <% end %>
         </tr>

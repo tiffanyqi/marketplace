@@ -2,9 +2,7 @@ class BidsController < ApplicationController
   before_action :set_bid, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-
-  # GET /bids
-  # GET /bids.json
+  # view all bids
   def index
     if params[:sort]
       @bids = Bid.where(:user_id => current_user.id).order(params[:sort] + ' DESC')
@@ -13,85 +11,85 @@ class BidsController < ApplicationController
     end
   end
 
-  # GET /bids/1
-  # GET /bids/1.json
+  # view a bid
   def show
     @listing = params[:listing]
     @bid = Bid.find(params[:id])
   end
 
   def accept
-    @listing = Listing.find(params[:listing])
     @bid = Bid.find(params[:id])
-    @bid.accepted = true
-    @listing.accepted = true
-    @listing.save
-    @bid.save
-    redirect_to :action => 'index', :controller => 'bids'
+    if @bid.user_id != current_user.id
+      respond_to do |format|
+        format.html { render 'show', notice: 'You do not have permission.' }
+      end
+    else
+      @bid.accepted = true
+      @listing = Listing.find(params[:listing])
+      @listing.accepted = true
+      @listing.save
+      @bid.save
+      redirect_to :action => 'index', :controller => 'bids'
+    end
   end
 
-  # GET /bids/new
+  # start a new bid
   def new
-    @bid = Bid.new
     @listing = params[:listing]
-    @bids = Bid.where(:listing_id => @listing)
+    if Listing.find(@listing).user_id == current_user.id
+      redirect_to listings_path, notice: 'You cannot bid on your own listing.'
+    else
+      @bid = Bid.new
+    end
   end
 
-  # GET /bids/1/edit
-  def edit
-  end
-
-  # POST /bids
-  # POST /bids.json
+  # actually create it
   def create
     @bid = Bid.new(bid_params)
-    @listing = Listing.find(params[:listing])
-    if @listing.bid_quantity == 1
-      @listing.average_price = @bid.bid_price
+    @listing = params[:listing]
+    if Listing.find(@listing).price > @bid.bid_price
+      render :new, notice: 'Please create a bid price higher than the asking price.'
     else
-      @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price)
-      @listing.average_price = @listing.average_price / (@listing.bid_quantity + 1)
-    end
-    @listing.bid_quantity += 1
-    @bid.listing_id = @listing.id
-    @bid.user_id = current_user.id
-    @bid.accepted = false
-    @bid.save
-    @listing.save
-
-    respond_to do |format|
-      if @bid.save
-        format.html { redirect_to @bid, notice: 'Bid was successfully created.' }
-        format.json { render :show, status: :created, location: @bid }
+      @listing = Listing.find(params[:listing])
+      if @listing.bid_quantity == 1
+        @listing.average_price = @bid.bid_price
       else
-        format.html { render :new }
-        format.json { render json: @bid.errors, status: :unprocessable_entity }
+        @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price)
+        @listing.average_price = @listing.average_price / (@listing.bid_quantity + 1)
+      end
+      @listing.bid_quantity += 1
+      @bid.listing_id = @listing.id
+      @bid.user_id = current_user.id
+      @bid.accepted = false
+      @bid.save
+      @listing.save
+
+      respond_to do |format|
+        if @bid.save
+          format.html { redirect_to @bid, notice: 'Bid was successfully created.' }
+          format.json { render :show, status: :created, location: @bid }
+        else
+          format.html { render :new }
+          format.json { render json: @bid.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
-  # PATCH/PUT /bids/1
-  # PATCH/PUT /bids/1.json
-  def update
-    respond_to do |format|
-      if @bid.update(bid_params)
-        format.html { redirect_to @bid, notice: 'Bid was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bid }
-      else
-        format.html { render :edit }
-        format.json { render json: @bid.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /bids/1
-  # DELETE /bids/1.json
+  # remove the bid
   def destroy
-    @bid.destroy
-    respond_to do |format|
-      format.html { redirect_to bids_url, notice: 'Bid was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @bid.user_id == current_user.id
+      @bid.destroy
+      respond_to do |format|
+        format.html { redirect_to bids_url, notice: 'Bid was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to bids_url, notice: 'You do not have permission to destroy this.' }
+        format.json { head :no_content }
+      end
+    end      
   end
 
   private

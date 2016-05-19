@@ -1,6 +1,13 @@
 == Marketplace
 
 TODOs:
+<<<<<<< HEAD
+=======
+- AVERAGE PRICE
+
+
+- testing
+>>>>>>> parent of 933675a... finally averages work
 - change timestamps
 - change boolean
 - change currency

@@ -1,19 +1,6 @@
 == Marketplace
 
 TODOs:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 933675a... finally averages work
-- AVERAGE PRICE
-
-
-- testing
-<<<<<<< HEAD
->>>>>>> parent of 933675a... finally averages work
-=======
->>>>>>> parent of 933675a... finally averages work
 - change timestamps
 - change boolean
 - change currency

@@ -1,6 +1,7 @@
 == Marketplace
 
 TODOs:
+- more testing
 - change timestamps
 - change boolean
 - change currency

@@ -38,9 +38,6 @@ class ListingsController < ApplicationController
         format.html { redirect_to listings_url, notice: 'You do not have permission to access this.' }
         format.json { head :no_content }
       end
-    else
-      @listing.average_price = @listing.price if @listing.bid_quantity == 0
-      @listing.save
     end
   end
 
@@ -51,6 +48,7 @@ class ListingsController < ApplicationController
     @listing.average_price = @listing.price
     @listing.user_id = current_user.id
     @listing.accepted = false
+    # @listing.user = current_user.first_name + " " + current_user.last_name
     @listing.save
 
     respond_to do |format|
@@ -79,7 +77,8 @@ class ListingsController < ApplicationController
     end
   end
 
-  # removing a listing completely
+  # DELETE /listings/1
+  # DELETE /listings/1.json
   def destroy
     if @listing.user_id == current_user.id
       @listing.destroy

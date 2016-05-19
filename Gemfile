@@ -4,7 +4,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
+<<<<<<< HEAD
 gem 'sqlite3', '1.3.11'
+=======
+gem 'sqlite3'
+>>>>>>> parent of 1cd622c... convert db and more tests
 # gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

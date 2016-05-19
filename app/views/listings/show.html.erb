@@ -47,9 +47,9 @@
           <tr>
             <td><%= bid.bid_price %></td>
             <td><%= bid.created_at %></td>
-            <% if @listing.user_id == current_user.id and !@listing.accepted %>
+            <% if current_user and @listing.user_id == current_user.id and !@listing.accepted %>
               <td><%= link_to 'Accept', accept_bid_path(bid, :listing => @listing.id), method: :post, data: { confirm: 'Are you sure you want to accept this bid?' } %></td>
-            <% elsif @listing.user_id == current_user.id and bid.accepted %>
+            <% elsif current_user and @listing.user_id == current_user.id and bid.accepted %>
               <td>Accepted!</td>
             <% end %>
           </tr>

@@ -19,7 +19,7 @@ class BidsController < ApplicationController
 
   def accept
     @bid = Bid.find(params[:id])
-    if @bid.user_id != current_user.id
+    if @bid.user_id == current_user.id
       respond_to do |format|
         format.html { render 'show', notice: 'You do not have permission.' }
       end
@@ -51,19 +51,13 @@ class BidsController < ApplicationController
       render :new, notice: 'Please create a bid price higher than the asking price.'
     else
       @listing = Listing.find(params[:listing])
-      if @listing.bid_quantity > 2
-        @listing.average_price = @bid.bid_price
-      elsif @listing.bid_quantity == 2
-        @listing.average_price = (@listing.average_price * 2 - @bid.bid_price)/2
-      else
-        @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price) / (@listing.bid_quantity + 1)
-      end
       @listing.bid_quantity += 1
+      @listing.save
+      update_price(@listing, @bid, 'add')
       @bid.listing_id = @listing.id
       @bid.user_id = current_user.id
       @bid.accepted = false
       @bid.save
-      @listing.save
 
       respond_to do |format|
         if @bid.save
@@ -77,17 +71,33 @@ class BidsController < ApplicationController
     end
   end
 
+  def update_price(listing, bid, action)
+    if listing.bid_quantity == 0
+      listing.average_price = listing.price
+    elsif listing.bid_quantity = 1
+      listing.average_price = bid.bid_price
+    else
+      case action
+      when 'add'
+        listing.average_price*=(listing.bid_quantity-1)
+        listing.average_price+=bid.bid_price
+        listing.average_price/=listing.bid_quantity
+      when 'remove'
+        listing.average_price*=(listng.bid_quantity+1)
+        listing.average_price-=bid.bid_price
+        listing.average_price/=listing.bid_quantity
+      end
+    end
+    listing.save
+  end
+
   # remove the bid
   def destroy
     if @bid.user_id == current_user.id
       @listing = Listing.find(@bid.listing_id)
-      if @listing.bid_quantity == 1
-        @listing.average_price = @listing.price
-      else
-        @listing.average_price = (@listing.average_price * @listing.bid_quantity - @bid.bid_price) / (@listing.bid_quantity - 1)
-      end
       @listing.bid_quantity -= 1
       @listing.save
+      update_price(@listing, @bid, 'remove')
       @bid.destroy
       respond_to do |format|
         format.html { redirect_to bids_url, notice: 'Your bid was successfully removed.' }

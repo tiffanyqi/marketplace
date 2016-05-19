@@ -1,6 +1,9 @@
 == Marketplace
 
 TODOs:
+- AVERAGE PRICE
+
+
 - testing
 - change timestamps
 - change boolean

@@ -51,11 +51,12 @@ class BidsController < ApplicationController
       render :new, notice: 'Please create a bid price higher than the asking price.'
     else
       @listing = Listing.find(params[:listing])
-      if @listing.bid_quantity == 1
+      if @listing.bid_quantity > 2
         @listing.average_price = @bid.bid_price
+      elsif @listing.bid_quantity == 2
+        @listing.average_price = (@listing.average_price * 2 - @bid.bid_price)/2
       else
-        @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price)
-        @listing.average_price = @listing.average_price / (@listing.bid_quantity + 1)
+        @listing.average_price = (@listing.average_price * @listing.bid_quantity + @bid.bid_price) / (@listing.bid_quantity + 1)
       end
       @listing.bid_quantity += 1
       @bid.listing_id = @listing.id
@@ -66,7 +67,7 @@ class BidsController < ApplicationController
 
       respond_to do |format|
         if @bid.save
-          format.html { redirect_to @bid, notice: 'Bid was successfully created.' }
+          format.html { redirect_to @bid, notice: 'Your bid was successfully created.' }
           format.json { render :show, status: :created, location: @bid }
         else
           format.html { render :new }
@@ -79,14 +80,22 @@ class BidsController < ApplicationController
   # remove the bid
   def destroy
     if @bid.user_id == current_user.id
+      @listing = Listing.find(@bid.listing_id)
+      if @listing.bid_quantity == 1
+        @listing.average_price = @listing.price
+      else
+        @listing.average_price = (@listing.average_price * @listing.bid_quantity - @bid.bid_price) / (@listing.bid_quantity - 1)
+      end
+      @listing.bid_quantity -= 1
+      @listing.save
       @bid.destroy
       respond_to do |format|
-        format.html { redirect_to bids_url, notice: 'Bid was successfully destroyed.' }
+        format.html { redirect_to bids_url, notice: 'Your bid was successfully removed.' }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to bids_url, notice: 'You do not have permission to destroy this.' }
+        format.html { redirect_to bids_url, notice: 'You do not have permission to remove this from bids.' }
         format.json { head :no_content }
       end
     end      

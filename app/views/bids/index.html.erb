@@ -17,7 +17,7 @@
         <% listing = Listing.find(bid.listing_id) %>
         <td><%= link_to listing.title, bid %></td>
         <td><%= bid.created_at %></td>
-        <td><%= link_to 'Remove', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove', bid, method: :delete, data: { confirm: 'Are you sure you want to remove this bid?' } %></td>
         <td><%= bid.accepted %></td>
       </tr>
     <% end %>

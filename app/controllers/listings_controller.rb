@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
+        format.html { redirect_to @listing, notice: 'Your listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
@@ -67,7 +67,7 @@ class ListingsController < ApplicationController
     respond_to do |format|
       if @listing.user_id == current_user.id
         if @listing.update(listing_params)
-          format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
+          format.html { redirect_to @listing, notice: 'Your listing was successfully updated.' }
           format.json { render :show, status: :ok, location: @listing }
         end
       else
@@ -83,12 +83,12 @@ class ListingsController < ApplicationController
     if @listing.user_id == current_user.id
       @listing.destroy
       respond_to do |format|
-        format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+        format.html { redirect_to listings_url, notice: 'Your listing was successfully removed.' }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to listings_url, notice: 'You do not have permission to destroy this.' }
+        format.html { redirect_to listings_url, notice: 'You do not have permission to remove this from listings.' }
         format.json { head :no_content }
       end
     end      
